@@ -1,0 +1,951 @@
+
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AUTO LUX — Унаа сатуу</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f8;
+    color: #17191e;
+}
+
+:root {
+    --orange: #ff571b;
+}
+
+header {
+    height: 70px;
+    padding: 0 4%;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px #ddd;
+}
+
+.logo {
+    font-size: 29px;
+    font-weight: 900;
+}
+
+.logo span {
+    color: var(--orange);
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #222;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: var(--orange);
+}
+
+.cart-btn {
+    border: none;
+    background: var(--orange);
+    color: white;
+    padding: 14px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* НЕГИЗГИ БӨЛҮК */
+
+.container {
+    display: grid;
+    grid-template-columns: 36% 1fr;
+    gap: 18px;
+    padding: 15px;
+    max-width: 1800px;
+    margin: auto;
+}
+
+/* СОЛ ЖАКТАГЫ ЖАРНАМА */
+
+.left {
+    min-height: 750px;
+    padding: 28px;
+    border-radius: 17px;
+    color: white;
+    position: sticky;
+    top: 85px;
+    background:
+    linear-gradient(#05070acc,#05070add),
+    url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=85")
+    center/cover;
+    display: flex;
+    flex-direction: column;
+}
+
+.left h1 {
+    font-size: 42px;
+    line-height: 1.15;
+    margin-bottom: 18px;
+}
+
+.left h1 span {
+    color: var(--orange);
+}
+
+.left p {
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.left h2 {
+    margin: 25px 0 18px;
+    font-size: 20px;
+}
+
+.left ul {
+    list-style: none;
+}
+
+.left li {
+    margin: 15px 0;
+    font-size: 15px;
+}
+
+.left li::before {
+    content: "✓ ";
+    color: var(--orange);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.left-bottom {
+    margin-top: auto;
+    padding-top: 25px;
+    border-top: 1px solid #ffffff55;
+    text-align: center;
+}
+
+.primary {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    text-decoration: none;
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* ИЗДӨӨ */
+
+.search {
+    margin-bottom: 15px;
+}
+
+.search input {
+    width: 100%;
+    padding: 16px 20px;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    font-size: 16px;
+    outline-color: var(--orange);
+}
+
+/* КАТЕГОРИЯЛАР */
+
+.categories {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+}
+
+.categories button {
+    border: none;
+    background: #eeeef0;
+    padding: 14px 17px;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.categories button:hover,
+.categories button.active {
+    background: var(--orange);
+    color: white;
+}
+
+/* МАШИНАЛАР */
+
+.cars {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 17px;
+}
+
+.car {
+    background: white;
+    border: 1px solid #e7e7ea;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: .3s;
+}
+
+.car:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px #0002;
+}
+
+.car img {
+    width: 100%;
+    height: 165px;
+    display: block;
+    object-fit: cover;
+    background: #eee;
+}
+
+.car-info {
+    padding: 13px;
+}
+
+.car-info h3 {
+    font-size: 18px;
+    margin-bottom: 9px;
+}
+
+.spec {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.price {
+    color: var(--orange);
+    font-size: 19px;
+    font-weight: 900;
+}
+
+.add {
+    width: 42px;
+    height: 42px;
+    background: var(--orange);
+    border: none;
+    border-radius: 11px;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add:hover {
+    background: #d94312;
+}
+
+.no-result {
+    display: none;
+    text-align: center;
+    padding: 30px;
+}
+
+/* ТӨМӨНКҮ БӨЛҮКТӨР */
+
+.info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.info-box {
+    background: white;
+    padding: 22px;
+    border-radius: 15px;
+    line-height: 1.7;
+}
+
+.info-box h2 {
+    margin-bottom: 10px;
+}
+
+.info-box span {
+    color: var(--orange);
+}
+
+footer {
+    background: #17191e;
+    color: white;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+footer span {
+    color: var(--orange);
+}
+
+/* СЕБЕТ */
+
+.cart-panel {
+    display: none;
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 200;
+    width: 370px;
+    max-width: calc(100% - 40px);
+    max-height: 80vh;
+    overflow: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 35px #0003;
+}
+
+.cart-panel.open {
+    display: block;
+}
+
+.cart-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.close {
+    border: none;
+    background: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    gap: 10px;
+}
+
+.qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty button {
+    border: none;
+    background: #eee;
+    padding: 7px 11px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.total {
+    margin: 20px 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.checkout {
+    width: 100%;
+    padding: 15px;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ТЕЛЕФОН ҮЧҮН */
+
+@media(max-width:1050px) {
+    .container {
+        grid-template-columns: 34% 1fr;
+    }
+}
+
+@media(max-width:760px) {
+    header {
+        height: auto;
+        padding: 15px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .left {
+        position: relative;
+        min-height: 450px;
+    }
+
+    .cars {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media(max-width:480px) {
+    .cars {
+        grid-template-columns: 1fr;
+    }
+
+    .info {
+        grid-template-columns: 1fr;
+    }
+
+    .left h1 {
+        font-size: 34px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🚘 AUTO <span>LUX</span></div>
+
+    <nav>
+        <a href="#home">Башкы бет</a>
+        <a href="#cars">Унаалар</a>
+        <a href="#about">Биз жөнүндө</a>
+        <a href="#contact">Байланыш</a>
+    </nav>
+
+    <button class="cart-btn" onclick="toggleCart()">
+        🛒 <span id="count">0</span>
+    </button>
+</header>
+
+<div class="container">
+
+    <!-- СОЛ ЖАКТАГЫ ЖАРНАМА -->
+
+    <aside class="left" id="home">
+
+        <h1>
+            AUTO LUX —<br>
+            кыялыңыздагы <span>унаа</span><br>
+            сиз үчүн!
+        </h1>
+
+        <p>
+            Сапаттуу унаалар, жакшы баалар
+            жана ишенимдүү кызмат!
+        </p>
+
+        <h2>⭐ Биздин мүмкүнчүлүктөр:</h2>
+
+        <ul>
+            <li>Машиналарды категорияларга бөлүү</li>
+            <li>Машиналарды аты боюнча издөө</li>
+            <li>Себетке кошуу жана санын өзгөртүү</li>
+            <li>Жалпы бааны автоматтык эсептөө</li>
+            <li>WhatsApp аркылуу заказ берүү</li>
+        </ul>
+
+        <div class="left-bottom">
+            <p>🤝 Сиздин ишеним — биздин күчүбүз!</p>
+            <a href="#cars" class="primary">
+                Унааларды көрүү →
+            </a>
+        </div>
+
+    </aside>
+
+    <!-- ОҢ ЖАКТАГЫ КАТАЛОГ -->
+
+    <main id="cars">
+
+        <div class="search">
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="🔍 Машинанын атын издеңиз..."
+            >
+        </div>
+
+        <div class="categories">
+
+            <button class="active" data-type="all">
+                Баары
+            </button>
+
+            <button data-type="sedan">
+                🚘 Седандар
+            </button>
+
+            <button data-type="crossover">
+                🚙 Кроссоверлер
+            </button>
+
+            <button data-type="suv">
+                🚙 Жол тандабастар
+            </button>
+
+            <button data-type="sport">
+                🏎 Спорттук авто
+            </button>
+
+            <button data-type="electric">
+                ⚡ Электромобилдер
+            </button>
+
+        </div>
+
+        <div class="cars">
+
+            <!-- TOYOTA CAMRY -->
+
+            <article class="car"
+                data-type="sedan"
+                data-name="Toyota Camry">
+
+                <img
+                    src="https://images.autotrader.com/resize/1200x630/ps-vehicle-media/e7583b2b-8ebc-430f-a224-6ee7db52904d.jpg"
+                    alt="Toyota Camry"
+                    referrerpolicy="no-referrer"
+                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=900&q=85'">
+
+                <div class="car-info">
+                    <h3>Toyota Camry</h3>
+                    <div class="spec">
+                        📅 2022-жыл | ⚙ Автомат | ⛽ Бензин
+                    </div>
+
+                    <div class="price-row">
+                        <span class="price">2 400 000 сом</span>
+                        <button class="add"
+                            onclick="addCar('Toyota Camry',2400000)">+</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- BMW X5 -->
+
+            <article class="car"
+                data-type="crossover"
+                data-name="BMW X5">
+
+                <img
+                    src="https://assets-eu-01.kc-usercontent.com/3b3d460e-c5ae-0195-6b86-3ac7fb9d52db/a0725413-0d9c-4469-bf29-043d58d20580/BMW%20X5%20%289%29.jpg"
+                    alt="BMW X5"
+                    referrerpolicy="no-referrer"
+                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=900&q=85'">
+
+                <div class="car-info">
+                    <h3>BMW X5</h3>
+                    <div class="spec">
+                        📅 2021-жыл | ⚙ Автомат | ⛽ Дизель
+                    </div>
+
+                    <div class="price-row">
+                        <span class="price">4 500 000 сом</span>
+                        <button class="add"
+                            onclick="addCar('BMW X5',4500000)">+</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- LAND CRUISER -->
+
+            <article class="car"
+                data-type="suv"
+                data-name="Toyota Land Cruiser">
+
+                <img
+                    src="https://media.toyota-gib.com/web/models/300-series/vja300l-gnuazv/vja300l-gnuazv-g1.webp"
+                    alt="Toyota Land Cruiser"
+                    referrerpolicy="no-referrer"
+                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=900&q=85'">
+
+                <div class="car-info">
+                    <h3>Toyota Land Cruiser</h3>
+                    <div class="spec">
+                        📅 2022-жыл | ⚙ Автомат | ⛽ Бензин
+                    </div>
+
+                    <div class="price-row">
+                        <span class="price">6 500 000 сом</span>
+                        <button class="add"
+                            onclick="addCar('Toyota Land Cruiser',6500000)">+</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PORSCHE -->
+
+            <article class="car"
+                data-type="sport"
+                data-name="Porsche 911">
+
+                <img
+                    src="https://hips.hearstapps.com/hmg-prod/images/2025-porsche-911-carrera-s-102-6931a3cd69b20.jpg"
+                    alt="Porsche 911"
+                    referrerpolicy="no-referrer"
+                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=85'">
+
+                <div class="car-info">
+                    <h3>Porsche 911</h3>
+                    <div class="spec">
+                        📅 2023-жыл | ⚙ Автомат | ⛽ Бензин
+                    </div>
+
+                    <div class="price-row">
+                        <span class="price">8 000 000 сом</span>
+                        <button class="add"
+                            onclick="addCar('Porsche 911',8000000)">+</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- MERCEDES -->
+
+            <article class="car"
+                data-type="sedan"
+                data-name="Mercedes-Benz E-Class">
+
+                <img
+                    src="https://img.autofun.co.id/file/a0768b329d6440658e7951ead2f1341a.jpg"
+                    alt="Mercedes-Benz E-Class"
+                    referrerpolicy="no-referrer"
+                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=900&q=85'">
+
+                <div class="car-info">
+                    <h3>Mercedes-Benz E-Class</h3>
+                    <div class="spec">
+                        📅 2021-жыл | ⚙ Автомат | ⛽ Бензин
+                    </div>
+
+                    <div class="price-row">
+                        <span class="price">3 800 000 сом</span>
+                        <button class="add"
+                            onclick="addCar('Mercedes-Benz E-Class',3800000)">+</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- TESLA -->
+
+            <article class="car"
+                data-type="electric"
+                data-name="Tesla Model 3">
+
+                <img
+                    src="https://car-images.bauersecure.com/pagefiles/83310/tesla_model_3_specs.jpg"
+                    alt="Tesla Model 3"
+                    referrerpolicy="no-referrer"
+                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=900&q=85'">
+
+                <div class="car-info">
+                    <h3>Tesla Model 3</h3>
+                    <div class="spec">
+                        📅 2023-жыл | ⚡ Электр | ⚙ Автомат
+                    </div>
+
+                    <div class="price-row">
+                        <span class="price">3 500 000 сом</span>
+                        <button class="add"
+                            onclick="addCar('Tesla Model 3',3500000)">+</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- HYUNDAI -->
+
+            <article class="car"
+                data-type="crossover"
+                data-name="Hyundai Tucson">
+
+                <img
+                    src="https://d15-a.sdn.cz/d_15/c_img_gS_P/vs3BoY.jpeg?fl=cro%2C0%2C124%2C1280%2C720%7Cres%2C1200%2C%2C1%7Cjpg%2C80%2C%2C1"
+                    alt="Hyundai Tucson"
+                    referrerpolicy="no-referrer"
+                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=900&q=85'">
+
+                <div class="car-info">
+                    <h3>Hyundai Tucson</h3>
+                    <div class="spec">
+                        📅 2022-жыл | ⚙ Автомат | ⛽ Бензин
+                    </div>
+
+                    <div class="price-row">
+                        <span class="price">2 200 000 сом</span>
+                        <button class="add"
+                            onclick="addCar('Hyundai Tucson',2200000)">+</button>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="no-result" id="noResult">
+            Машина табылган жок.
+        </div>
+
+        <div class="info">
+
+            <section class="info-box" id="about">
+                <h2>Биз <span>жөнүндө</span></h2>
+                <p>
+                    AUTO LUX — машина сатып алуу жана сатуу
+                    боюнча заманбап авто борбор.
+                    Биз кардарларга сапаттуу унаа тандоого жардам беребиз.
+                </p>
+            </section>
+
+            <section class="info-box" id="contact">
+                <h2>Биз менен <span>байланыш</span></h2>
+                <p>
+                    📞 +996 700 000 000<br>
+                    📍 Кыргызстан, Ош шаары<br>
+                    🕒 09:00 – 20:00
+                </p>
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+<footer>
+    <strong>AUTO <span>LUX</span></strong>
+    <p>© 2026 AUTO LUX. Бардык укуктар корголгон.</p>
+</footer>
+
+<!-- СЕБЕТ -->
+
+<div class="cart-panel" id="cartPanel">
+
+    <div class="cart-head">
+        <h2>🛒 Себет</h2>
+        <button class="close" onclick="toggleCart()">×</button>
+    </div>
+
+    <div id="cartItems">
+        Азырынча унаа жок.
+    </div>
+
+    <div class="total" id="total">
+        Жалпы: 0 сом
+    </div>
+
+    <button class="checkout" onclick="checkout()">
+        WhatsApp аркылуу заказ берүү
+    </button>
+
+</div>
+
+<script>
+
+const PHONE = "996700000000";
+
+let cart = [];
+let activeType = "all";
+
+function toggleCart() {
+    document.getElementById("cartPanel")
+        .classList.toggle("open");
+}
+
+function addCar(name, price) {
+
+    let found = cart.find(x => x.name === name);
+
+    if (found) {
+        found.qty++;
+    } else {
+        cart.push({
+            name: name,
+            price: price,
+            qty: 1
+        });
+    }
+
+    updateCart();
+
+    document.getElementById("cartPanel")
+        .classList.add("open");
+}
+
+function changeQty(index, number) {
+
+    cart[index].qty += number;
+
+    if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+    }
+
+    updateCart();
+}
+
+function updateCart() {
+
+    let count = 0;
+    let total = 0;
+    let html = "";
+
+    cart.forEach((item, index) => {
+
+        count += item.qty;
+        total += item.price * item.qty;
+
+        html += `
+        <div class="cart-item">
+
+            <div>
+                <b>${item.name}</b><br>
+                ${item.price.toLocaleString()} сом
+            </div>
+
+            <div class="qty">
+                <button onclick="changeQty(${index},-1)">−</button>
+                ${item.qty}
+                <button onclick="changeQty(${index},1)">+</button>
+            </div>
+
+        </div>`;
+    });
+
+    document.getElementById("count").textContent = count;
+
+    document.getElementById("cartItems").innerHTML =
+        html || "Азырынча унаа жок.";
+
+    document.getElementById("total").textContent =
+        "Жалпы: " + total.toLocaleString() + " сом";
+}
+
+// КАТЕГОРИЯ ФИЛЬТРИ
+
+function filterCars(type, button) {
+
+    activeType = type;
+
+    document.querySelectorAll(".categories button")
+        .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    searchCars();
+}
+
+document.querySelectorAll(".categories button")
+.forEach(button => {
+    button.addEventListener("click", () => {
+        filterCars(button.dataset.type, button);
+    });
+});
+
+// МАШИНА ИЗДӨӨ
+
+function searchCars() {
+
+    let text = document.getElementById("searchInput")
+        .value.toLowerCase();
+
+    let visible = 0;
+
+    document.querySelectorAll(".car").forEach(car => {
+
+        let typeOK =
+            activeType === "all" ||
+            car.dataset.type === activeType;
+
+        let nameOK =
+            car.dataset.name.toLowerCase().includes(text);
+
+        if (typeOK && nameOK) {
+            car.style.display = "";
+            visible++;
+        } else {
+            car.style.display = "none";
+        }
+    });
+
+    document.getElementById("noResult").style.display =
+        visible ? "none" : "block";
+}
+
+document.getElementById("searchInput")
+.addEventListener("input", searchCars);
+
+// WHATSAPP ЗАКАЗ
+
+function checkout() {
+
+    if (cart.length === 0) {
+        alert("Алгач машина тандаңыз!");
+        return;
+    }
+
+    if (PHONE === "996700000000") {
+        alert("WhatsApp номерин өзүңүздүн номериңизге алмаштырыңыз!");
+        return;
+    }
+
+    let message = "Саламатсызбы! AUTO LUX заказ:\n";
+
+    cart.forEach(item => {
+        message += item.name + " — " +
+            item.qty + " даана\n";
+    });
+
+    let total = cart.reduce(
+        (sum, item) => sum + item.price * item.qty, 0
+    );
+
+    message += "Жалпы баасы: " +
+        total.toLocaleString() + " сом";
+
+    window.open(
+        "https://wa.me/" + PHONE +
+        "?text=" + encodeURIComponent(message),
+        "_blank"
+    );
+}
+
+</script>
+
+</body>
+</html>
